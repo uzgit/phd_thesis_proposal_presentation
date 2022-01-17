@@ -1,0 +1,36 @@
+\def\myheader {
+    \vspace*{0.8cm}
+    \hspace*{-0.7cm}	
+	\parbox{0.93\paperwidth}{
+		      	\includegraphics[height=1.7cm]{./graphics/logo_firstpage.png} \hfill
+                \raisebox{1ex}{\includegraphics[height=1.7cm]{./graphics/uni_logo.png}}
+		    	}
+     \vspace*{1cm}
+	}
+
+\def\myfooter{
+    \vspace*{-0.4cm}
+    \hspace*{-\beamer@leftmargin}
+    \hspace*{0.15cm}  
+    \parbox{\paperwidth} {\textcolor{gray}{\hrule width 0.95\paperwidth}}\\
+    \vspace*{0.1cm}
+    \hspace*{-\beamer@leftmargin}
+    \hspace*{0.25cm}	
+    \parbox{\paperwidth-0.8cm}
+    {\centering{\raisebox{0.2cm}{\includegraphics[height=0.9cm]{./graphics/studycas.png}}} \hfill
+\hskip0.2cm
+\includegraphics[height=1.2cm]{./graphics/lorenz_complex.png}}}
+
+\setbeamertemplate{footline}{
+    \hskip0.025\paperwidth
+    \parbox{\paperwidth}{
+    \parbox{0.15\paperwidth}{\includegraphics[width=0.15\paperwidth]{./graphics/logo_footer.png}}
+    \parbox{0.8\paperwidth}{\vspace*{-0.2cm}\textcolor{gray}{\hrule width 0.78\paperwidth}}
+    }\\
+    \vskip-0.2cm
+    \hskip0.025\paperwidth
+    \parbox{0.925\paperwidth}{
+    \hskip0.2\paperwidth
+    {\textcolor{gray}{\tiny \auth \hskip0.15cm {\it \rd} \hfill\insertframenumber}}}
+    \vskip0.5cm
+ 	}
