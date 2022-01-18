@@ -50,7 +50,7 @@
 
 %% -----------------Titles and Footers ---------------------%%
 %% The abbreviated information goes in the [], the full information in {}
-\title[RU Presentation]{Real Time, Autonomous Drone Landing using Only Embedded Processing}
+\title[RU Presentation]{Real Time, Onboard-only Landing Site Evaluation for Autonomous Drones}
 \subtitle[demo]{PhD Thesis Proposal}
 \author[Springer]{Joshua Springer}
 \institute[RU]{Reykjavík University}
@@ -58,6 +58,17 @@
 
 \logo{\includegraphics[width=1.5cm]{ru-logo}}
 \titlegraphic{\includegraphics[width=2CM]{ru-logo}}
+
+\AtBeginSection[]{
+  \begin{frame}
+  \vfill
+  \centering
+  \begin{beamercolorbox}[sep=8pt,center,shadow=true,rounded=true]{title}
+    \usebeamerfont{title}\insertsectionhead\par%
+  \end{beamercolorbox}
+  \vfill
+  \end{frame}
+}
 
 \begin{document}
 %----------- titlepage ----------------------------------------------%
@@ -76,6 +87,7 @@
       \begin{itemize}
         \item Problem Description
         \item Motivation
+        \item State of the Art
       \end{itemize}
     \item Current Progress
       \begin{itemize}
@@ -91,178 +103,192 @@
 \end{frame}
 
 %----------- slides ----------------------------------------------%
-\begin{frame}
-  \frametitle{Introduction}
-  How to get help:
-  \begin{itemize}
-  \item \url{http://tug.ctan.org/macros/latex/contrib/beamer/doc/beameruserguide.pdf}
-  \item \url{http://tex.stackexchange.com}  {\it but Caveat Emptor!}\/
-  \item \url{http://overleaf.com}
-  \item \url{latex@list.ru.is} for template related questions
-  \end{itemize}
-\end{frame}
+\section{Introduction}
 
 \begin{frame}
-  \frametitle{Preparing the Presentation}
-  \begin{itemize}
-  \item Give sources for all pictures and cite information sources e.g. \cite{vossebeld2018customer}
-  \item More pictures, less text.
-  \item More slides, less time per slide.
-  \item 45--60 seconds per slide, no more.
-  \item Tell a story (make sure it flows).
-  \item Spellcheck!
-  \item Freeze any changes at least an hour before you present:  {\em last minute changes confuse the presenters}\/
-  \end{itemize}
-\end{frame}
-
-\begin{frame}[fragile]%You need the fragile option when you have any sort of verbatim environment
-  \frametitle{Dealing with graphics}
-  \begin{itemize}
-  \item Put them in the \path{graphics/} folder, not where the \url{.tex} is.  This will keep your folders from becoming messy.
-  \item Reduce the image sizes to a maximum of 1920$\times$1080 e.g using ImageMagick (\url{https://imagemagick.org}):
-\begin{verbatim}
-  mogrify -size 1920x1920 *.jpg
-\end{verbatim}
-    will resize all jpg files in that folder to keep their aspect ratios but have no dimension bigger than 1920.
-    \item Give credit and/or a source if the presenters did not create the graphic or photo.
-  \end{itemize}
-  
-\end{frame}
-
-\begin{frame}
-  \frametitle{Giving the Presentation}
-  \begin{itemize}
-  \item Grab the interest of the audience in the first 2 slides
-  \item Practice until you can do the slides without looking at them.
-    If you must have notes, put them on cards.  Do not read from a page
-    nor the slides.  It looks bad.
-  \item Scan and look around the audience.
-  \item Take a breath or drink instead of saying ``um'' and ``herna''.
-  \item Slow down.
-  \item Move around: don't just stand at the podium.  Having a pointer really helps with this.
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Citations}
-  \begin{itemize}
-  \item When in doubt, cite!
-  \item Anything in your presentation that you did not personally create should be cited
-    \item Use JabRef to manage your \path{.bib} files.
-  \item This template uses 4 separate libraries as a demonstration
-    \begin{itemize}
-    \item \path{references.bib} References for this particular presentation
-    \item \path{references-ad.bib} References of a particular subject (Axiomatic Design\cite{suh1990principles,suh2001axiomatic})
-      \item \path{references-foley.bib} References from the author's CV library
-      \item \path{references-collections.bib} References for multi-author books, proceedings, and other collections.
-        They need to be separated so they can be used as ``crossref'' and avoid typing in the information every time.
-    \end{itemize}
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Highlighting Stuff}
-  
-  In this slide, some important text will be
-  \alert{highlighted} because it's important.
-  Please, don't abuse it. \cite{overleaf:beamer}
-  
-  \begin{block}{Remark}
-    Sample text
-  \end{block}
-  
-  \begin{alertblock}{Important theorem}
-    Sample text in red box
-  \end{alertblock}
-  
-  \begin{examples}
-    Sample text in green box. The title of the block is ``Examples".
-  \end{examples}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Proof Example: There Is No Largest Prime Number}
-  \framesubtitle{The proof uses \textit{reductio ad absurdum}.}
-  \begin{theorem}
-    There is no largest prime number.
-  \end{theorem}
-  \begin{proof}
-    \begin{enumerate}
-    \item<1-| alert@1> Suppose $p$ were the largest prime number.
-    \item<2-> Let $q$ be the product of the first $p$ numbers.
-    \item<3-> Then $q+1$ is not divisible by any of them.
-    \item<1-> But $q + 1$ is greater than $1$, thus divisible by some prime
-      number not in the first $p$ numbers.\qedhere
-    \end{enumerate}
-  \end{proof}
-  Source: \cite{wright2017beamer}
-\end{frame}
-
-  %% Here is a demonstration of how to place a graphic somewhere arbitrary on the page
-  %%\begin{textblock}{width}(X,Y)
-  %% width defines a "minipage" for text
-  %% X and Y are measured from the top left of the page in centimeters
-  %%   or whatever base unit was defined
-%  \begin{textblock}{5}(7,2)
-%    \includegraphics[width=\textwidth]{ru-logo}
-%  \end{textblock}
-
-%% This is one way to make a graphic in a frame
-\begin{frame}
-  \frametitle{Graphics demonstration: Þingvellir National Park}
-  \begin{figure}
-    \centering
-    \includegraphics[height=0.8\textheight,width=0.8\textwidth,keepaspectratio]{thingvellir}
-    % may have to change the ratios to get it to fit the text nicely
-    \caption{The site of the Icelandic parliment meetings of old.  (Credit: J. Foley 2018)}
-    \label{fig:thingvellir}
-  \end{figure}
-\end{frame}
-
-%% in beamer-custom.sty we also create a convenient macro to make it simpler
-%% \graphicsframe{Title}{ratio}{filename}{caption text}
-%%% You may have to change the ratios to get it to fit the text nicely
-
-\begin{frame}
-  \frametitle{Two Column Format:  Strokkur at Geysir}
+  \frametitle{Problem Description and Motivation}
   \begin{columns}
     \column{0.5\textwidth}
     \begin{itemize}
-    \item Hot
-    \item Wet
-    \item Where we get the English word ``Geyser from.
+      \item Most of drone flight has been \textbf{automated}.
+      \begin{itemize}
+        \item Takeoff
+        \item Waypoint-to-waypoint-flight
+        \item Miscellaneous tasks: track/orbit an object, take a picture, etc.
+      \end{itemize}
+    \item Landing is still done \textbf{manually}.
     \end{itemize}
     \column{0.5\textwidth}
-    \includegraphics[height=0.75\textheight]{geysir-strokkur-2crop}\\
-    Credit: J. Foley 2018
+    \centering
+    \includegraphics[width=0.75\textwidth]{human_assisted_landing}\\
+    ``Human-assisted landing''
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{State of the Art}
+\end{frame}
+
+\section{Current Progress}
+
+\begin{frame}
+  \frametitle{Test Hexacopters}
+  \begin{columns}
+    \column{0.5\textwidth}
+    \begin{itemize}
+      \item Two Tarot 680 hexacopters
+      \item For real-world proof of concept of master thesis simulations.
+    \end{itemize}
+    \column{0.5\textwidth}
+    \centering
+    \includegraphics[width=0.75\textwidth]{coral_drone}\\
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Test Hexacopters' Components}
+  \begin{columns}
+    \column{0.5\textwidth}
+    \begin{itemize}
+      \item Navio2 + RPi 3 autopilot combo
+      \item Companion boards:
+      \begin{itemize}
+        \item Google Coral (embedded TPU)
+        \item Jetson Nano (embedded GPU)
+      \end{itemize}
+      \item Gimbaled camera modules
+      \item 433 MHz telemetry
+      \item 2.4 GHz R/C control
+    \end{itemize}
+    \column{0.5\textwidth}
+    \centering
+    \includegraphics[width=0.6\textwidth]{coral_electronics}\\
+    \includegraphics[width=0.6\textwidth]{jetson_electronics}\\
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Test Hexacopters' Performance}
+  \begin{columns}
+    \column{0.5\textwidth}
+    \column{0.5\textwidth}
+    \centering
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Fiducial System Modifications}
+  \begin{columns}
+    \column{0.5\textwidth}
+    \column{0.5\textwidth}
+    \centering
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Fiducial System Modifications: WhyCode}
+  \begin{columns}
+    \column{0.5\textwidth}
+    \column{0.5\textwidth}
+    \centering
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Fiducial System Modifications: April Tag}
+  \begin{columns}
+    \column{0.5\textwidth}
+    \column{0.5\textwidth}
+    \centering
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Fiducial System Modifications: Performance Analysis}
+  \begin{columns}
+    \column{0.5\textwidth}
+    \column{0.5\textwidth}
+    \centering
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Heavy Lift IR Drone}
+  \begin{columns}
+    \column{0.5\textwidth}
+    \column{0.5\textwidth}
+    \centering
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Autonomous Landing Proof of Concept \textbf{(FINALLY!)}}
+  \begin{columns}
+    \column{0.5\textwidth}
+    \column{0.5\textwidth}
+    \centering
+  \end{columns}
+\end{frame}
+
+\section{Research Plan}
+
+\begin{frame}
+  \frametitle{Data Set Generation}
+  \begin{columns}
+    \column{0.5\textwidth}
+    \column{0.5\textwidth}
+    \centering
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Terrain Classifier Creation}
+  \begin{columns}
+    \column{0.5\textwidth}
+    \column{0.5\textwidth}
+    \centering
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Testing in Simulation}
+  \begin{columns}
+    \column{0.5\textwidth}
+    \column{0.5\textwidth}
+    \centering
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Testing in the Real World}
+  \begin{columns}
+    \column{0.5\textwidth}
+    \column{0.5\textwidth}
+    \centering
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Drone Upgrades}
+  \begin{columns}
+    \column{0.5\textwidth}
+    \column{0.5\textwidth}
+    \centering
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Risk Analysis}
+  \begin{columns}
+    \column{0.5\textwidth}
+    \column{0.5\textwidth}
+    \centering
   \end{columns}
 \end{frame}
 
 \begin{frame}[allowframebreaks]
   \frametitle{References}
-  Thank you for your time.
-  Questions?
   \printbibliography{}
-
 \end{frame}
 
 \end{document}
-%%%%%%%%%%%%%%%%%%%% TeXStudio Magic Comments %%%%%%%%%%%%%%%%%%%%%
-%% These comments that start with "!TeX" modify the way TeXStudio works
-%% For details see http://texstudio.sourceforge.net/manual/current/usermanual_en.html   Section 4.10
-%%
-%% What encoding is the file in?
-% !TeX encoding = UTF-8
-%% What language should it be spellchecked?
-% !TeX spellcheck = en_US
-%% What program should I compile this document with?
-% !TeX program = pdflatex
-%% Which program should be used for generating the bibliography?
-% !TeX TXS-program:bibliography = txs:///bibtex
-%% This also sets the bibliography program for TeXShop and TeXWorks
-% !BIB program = bibtex
-
-%%% Local Variables:
-%%% mode: latex
-%%% TeX-master: t
-%%% End:
