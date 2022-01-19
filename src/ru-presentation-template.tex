@@ -171,8 +171,21 @@
   \frametitle{Test Hexacopters' Performance}
   \begin{columns}
     \column{0.5\textwidth}
+    \begin{itemize}
+      \item Stable flight performance
+      \item > 20 min flying time
+      \item Successful marker tracking
+      \item Errors during approach
+      \begin{itemize}
+        \item Monocular pose estimation ambiguity
+        \item GPS inaccuracy
+      \end{itemize}
+      \item No successful autonomous landing\\(but almost)
+    \end{itemize}
     \column{0.5\textwidth}
     \centering
+    \includegraphics[width=0.6\textwidth]{coral_gimbal_performance_x_axis}\\
+    \includegraphics[width=0.6\textwidth]{coral_gimbal_performance_y_axis}\\
   \end{columns}
 \end{frame}
 
@@ -180,6 +193,12 @@
   \frametitle{Fiducial System Modifications}
   \begin{columns}
     \column{0.5\textwidth}
+    Necessary properties:
+    \begin{itemize}
+      \item Overcome orientation ambiguity
+      \item Maintain visibility of the marker at both long- and short- distances
+      \item Be adequately computationally efficient to run on embedded hardware.
+    \end{itemize}
     \column{0.5\textwidth}
     \centering
   \end{columns}
