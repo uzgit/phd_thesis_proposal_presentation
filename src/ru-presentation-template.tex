@@ -49,19 +49,28 @@
 %% you may have weird problems with partners using other operating systems.
 
 \usepackage{datetime}
+\usepackage{hyperref}
 
 \newdateformat{monthyeardate}{\monthname[\THEMONTH] \THEYEAR}
 
 %% -----------------Titles and Footers ---------------------%%
 %% The abbreviated information goes in the [], the full information in {}
-\title[RU Presentation]{Real Time, Onboard-only Landing Site Evaluation for Autonomous Drones}
+\title[PhD Thesis Proposal]{Real Time, Onboard-only Landing Site Evaluation for Autonomous Drones}
 \subtitle[demo]{PhD Thesis Proposal}
 \author[Springer]{Joshua Springer}
 \institute[RU]{Reykjavík University}
 \date[2022]{\monthyeardate\today}%Set this to when you will present
 
-\logo{\includegraphics[width=1.5cm]{ru-logo}}
-\titlegraphic{\includegraphics[width=2CM]{ru-logo}}
+\newcommand{\nologo}{\setbeamertemplate{logo}{}}
+\newcommand{\yeslogo}{\logo{\includegraphics[width=1.5cm]{ru_logo_transparent}}}
+
+\yeslogo
+
+\newif\ifpause
+\pausefalse
+\newcommand{\mypause}{\ifpause \pause \fi}
+
+\titlegraphic{\includegraphics[width=2CM]{ru_logo_transparent}}
 
 \AtBeginSection[]{
   \begin{frame}
@@ -75,6 +84,9 @@
 }
 
 \begin{document}
+
+\setbeamercovered{invisible}
+
 %----------- titlepage ----------------------------------------------%
 \begin{frame}[plain]%plain option gets rid of the footer and the per-page logo
   \titlepage
@@ -89,19 +101,26 @@
   \begin{enumerate}
     \item Introduction
       \begin{itemize}
-        \item Problem Description
-        \item Motivation
+        \item Problem description and motivation
         \item State of the Art
       \end{itemize}
-    \item Current Progress
+    \mypause
+    \item Completed/ongoing projects
       \begin{itemize}
-        \item Completed/ongoing projects
-        \item Challenges
+        \mypause
+        \item Initial proof of concept attempt
+          \begin{itemize}
+            \item Continuation of master thesis (tested in simulation)
+          \end{itemize}
+        \mypause
+        \item Fiducial marker deep-dive and modifications
+        \mypause
+        \item Proof of concept
       \end{itemize}
     \item Research Plan
       \begin{itemize}
         \item Methods
-        \item Risk Analysis
+        \item Challenges and risk analysis
       \end{itemize}
   \end{enumerate}
 \end{frame}
@@ -112,28 +131,85 @@
 \begin{frame}
   \frametitle{Problem Description and Motivation}
   \begin{columns}
-    \column{0.5\textwidth}
+    \column{0.6\textwidth}
     \begin{itemize}
-      \item Most of drone flight has been \textbf{automated}.
+      \item Much of basic drone flight has been \textbf{automated}.
+      \mypause
       \begin{itemize}
         \item Takeoff
         \item Waypoint-to-waypoint-flight
-        \item Miscellaneous tasks: track/orbit an object, take a picture, etc.
+        \item Miscellaneous tasks:\\track/orbit an object,\\take a picture, etc.
       \end{itemize}
-    \item Landing is still done \textbf{manually}.
+      \mypause
+      \item Landing is still largely \textbf{manual}.
+      \mypause
+      \begin{itemize}
+        \item Problem in continuous, autonomous missions
+        \item Primitive, semi-autonomous methods are common (still require human operator)
+        \item Hand-catching is common
+      \end{itemize}
     \end{itemize}
-    \column{0.5\textwidth}
+    \column{0.4\textwidth}
     \centering
-    \includegraphics[width=0.75\textwidth]{human_assisted_landing}\\
+    \mypause
+    \includegraphics[width=\textwidth]{human_assisted_landing}\\
     ``Human-assisted landing''
   \end{columns}
 \end{frame}
 
 \begin{frame}
-  \frametitle{State of the Art}
+  \frametitle{Research Questions}
+  \begin{itemize}
+    \mypause
+    \item How can a drone autonomously land?
+    \mypause
+    \item What data do autonomous drone landing methods need?
+    \mypause
+    \item How can those methods execute in real time onboard a drone?
+  \end{itemize}
 \end{frame}
 
-\section{Current Progress}
+\begin{frame}
+  \frametitle{State of the Art}
+  \begin{itemize}
+    \item GPS-based landing: inaccurate (especially in Iceland, high GDOP).
+    \mypause
+    \item RTK GPS: sufficiently accurate
+    \begin{itemize}
+      \mypause
+      \item Requires extra equipment (powered base station)
+      \mypause
+      \item Overhead initialization time at every new mission
+      \mypause
+      \item Limited range (must be deployed at mission site)
+    \end{itemize}
+    \mypause
+    \item Fiducial landing:
+    \begin{itemize}
+      \mypause
+      \item Requires little overhead (only a marker printout and monocular camera)
+      \mypause
+      \item Limited detection abilities (fixed, downward-facing camera)
+    \end{itemize}
+    \mypause
+    \item Unstructured Landing
+    \begin{itemize}
+      \item PnP matching (land at takeoff site after GPS-based approach)
+      \item Terrain analysis via LIDAR point clouds, RGBD images, or optical flow
+      \item Typically slow (processing must be offloaded), or
+      \item Add behavioral constraints (optical flow needs motion)
+    \end{itemize}
+    \mypause
+    \item Other methods
+    \begin{itemize}
+      \item IR beacons
+      \item
+    \end{itemize}
+  \end{itemize}
+
+\end{frame}
+
+\section{Completed and Ongoing Projects}
 
 \begin{frame}
   \frametitle{Test Hexacopters}
@@ -154,18 +230,35 @@
   \begin{columns}
     \column{0.5\textwidth}
     \begin{itemize}
+      \mypause
       \item Navio2 + RPi 3 autopilot combo
-      \item Companion boards:
+      \mypause
+      \item Companion boards (for heavy onboard processing):
       \begin{itemize}
+        \mypause
         \item Google Coral (embedded TPU)
+        \mypause
         \item Jetson Nano (embedded GPU)
       \end{itemize}
+      \mypause
       \item Gimbaled camera modules
+      \mypause
       \item 433 MHz telemetry
+      \mypause
       \item 2.4 GHz R/C control
+      \mypause
+      \item Tested Autopilot Softwares
+      \mypause
+      \begin{itemize}
+        \mypause
+        \item ArduPilot
+        \mypause
+        \item PX4 (not technically supported)
+      \end{itemize}
     \end{itemize}
     \column{0.5\textwidth}
     \centering
+    \onslide
     \includegraphics[width=0.6\textwidth]{coral_electronics}\\
     \includegraphics[width=0.6\textwidth]{jetson_electronics}\\
   \end{columns}
@@ -176,8 +269,8 @@
   \begin{columns}
     \column{0.5\textwidth}
     \begin{itemize}
-      \item Stable flight performance
-      \item > 20 min flying time
+      \item Stable (manual) flight performance
+      \item \textasciitilde 20 min flying time
       \item Successful marker tracking
       \item Errors during approach
       \begin{itemize}
@@ -194,81 +287,11 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Fiducial System Modifications}
-  \begin{columns}
-    \column{0.5\textwidth}
-    Necessary properties:
-    \begin{itemize}
-      \item Overcome orientation ambiguity
-      \item Maintain visibility of the marker at both long- and short- distances
-      \item Be adequately computationally efficient to run on embedded hardware.
-    \end{itemize}
-    \column{0.5\textwidth}
-    \centering
-  \end{columns}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Fiducial System Modifications: WhyCode}
-  Approach 1: Extra tooth sampling
-  \begin{columns}
-    \column{0.5\textwidth}
-    \begin{itemize}
-      \item Original: elliptical sampling through the teeth
-      \item Added: radial sampling at tooth edges
-      \item Takes better advantage of camera distortion
-    \end{itemize}
-    \column{0.5\textwidth}
-    \centering
-    \includegraphics[width=0.5\textwidth]{original_sampling}\\
-    \includegraphics[width=0.5\textwidth]{ellipse_sampling}\\
-  \end{columns}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Fiducial System Modifications: WhyCode}
-  Approach 2: Planar regression from 3+ coplanar markers
-
-  \begin{columns}
-    \column{0.5\textwidth}
-    \begin{itemize}
-      \item Calculate normal vector to the plane connecting the markers.
-      \item Deduce pitch and roll from the normal vector.
-      \item Extract yaw from the markers.
-      \item Takes advantage of WhyCode's efficiency.
-    \end{itemize}
-    \column{0.5\textwidth}
-    \centering
-    \includegraphics[width=0.9\textwidth]{cropped_whycode_3_8_jiri_example}
-  \end{columns}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Fiducial System Modifications: April Tag}
-  April Tag: less orientation ambiguity, but less computationally efficient.\\
-  \centering
-  \vspace{1cm}
-  \begin{tabular}{m{0.6\textwidth}m{0.15\textwidth}}
-    Tag 36h11: original, most common. Eclipses camera's field of view when viewed from too close. & \includegraphics[width=\linewidth]{tag_36h11_borderless}\\
-    Tag custom48h12: more sophisticated, ``recursive.'' & \includegraphics[width=\linewidth]{tag48_12_00000}
-  \end{tabular}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Fiducial System Modifications: Performance Analysis}
-  \begin{columns}
-    \column{0.5\textwidth}
-    \column{0.5\textwidth}
-    \centering
-  \end{columns}
-\end{frame}
-
-\begin{frame}
   \frametitle{Heavy Lift IR Drone}
   \begin{columns}
     \column{0.4\textwidth}
     \begin{itemize}
-      \item Project with Christopher Hamilton (geologist, University of Arizona)
+      \item Project with Christopher Hamilton (geologist, University of Arizona) and Baldur Björnsson
       \item 1.3 m span, 25 kg lift
       \item FLIR camera
       \item Surveyed lava field at Fagradalsfjall
@@ -281,32 +304,271 @@
   \end{columns}
 \end{frame}
 
+\nologo
+\begin{frame}
+  \frametitle{Fiducial System Modifications}
+  \begin{columns}
+
+    \column{0.5\textwidth}
+    Necessary properties:
+    \begin{itemize}
+      \item Mitigate orientation ambiguity
+      \item Maintain visibility of the marker at both long- and short- distances
+      \item Be adequately computationally efficient to run on embedded hardware.
+    \end{itemize}
+    \column{0.5\textwidth}
+    \centering
+    \includegraphics[width=0.9\textwidth]{orbit-left-right-4_apriltag48h12_position-target}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Orientation Ambiguity in WhyCode}
+  \begin{columns}
+    \column{0.5\textwidth}
+    \begin{itemize}
+      \item 2 possible orientations
+      \item Determined from semi-axes of outer black ellipse
+      \item Choose the circle that is better centered on the marker
+      \item Use arclength of intersections with ID ``teeth''
+    \end{itemize}
+    \column{0.5\textwidth}
+    \centering
+    \includegraphics[width=0.9\textwidth]{whycode_orig_both_solutions_cropped}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Fiducial System Modifications: ``WhyCode Ellipse''}
+
+  \begin{columns}
+    \column{0.5\textwidth}
+    Approach 1: Extra tooth sampling
+    \begin{itemize}
+      \item Build on sampling of original method.
+      \item Radial sampling through predicted tooth edges.
+      \item Choose the solution that is centered better using predicted tooth edges.
+    \end{itemize}
+    \column{0.5\textwidth}
+    \centering
+    \includegraphics[width=0.9\textwidth]{whycode_ellipse_both_solutions_cropped}\\
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Fiducial System Modifications: ``WhyCode Multi''}
+
+  \begin{columns}
+    \column{0.5\textwidth}
+    Approach 2: Planar regression from at least 3 coplanar markers
+    \begin{itemize}
+      \item Throw away individual marker orientations.
+      \item Calculate normal vector to the plane connecting the markers.
+      \item Extract pitch and roll from the normal vector.
+      \item Extract yaw from the marker IDs.
+      \item Takes advantage of WhyCode's efficiency.
+    \end{itemize}
+    \column{0.5\textwidth}
+    \centering
+    \includegraphics[width=0.9\textwidth]{cropped_whycode_3_8_jiri_example}
+  \end{columns}
+\end{frame}
+
+\yeslogo
+\begin{frame}
+  \frametitle{Fiducial System Modifications: April Tag}
+  April Tag: less orientation ambiguity, but less computationally efficient.\\
+  \centering
+  \vspace{1cm}
+  \begin{tabular}{m{0.6\textwidth}m{0.15\textwidth}}
+%    Tag 36h11: original, most common. Eclipses camera's field of view when viewed from too close. & \includegraphics[width=\linewidth]{tag_36h11_borderless}\\
+    April Tag 48h12: more sophisticated, ``recursive.'' & \includegraphics[width=\linewidth]{tag48_12_00000}\\ & \\ & \\
+    April Tag Custom 24h10: ``recursive,'' smaller definition & \includegraphics[width=\linewidth]{tag24_10_00000}
+  \end{tabular}
+\end{frame}
+
+\nologo
+\begin{frame}
+  \frametitle{Performance Analysis: Discontinuity Rates}
+  \begin{columns}
+    \column{0.5\textwidth}
+      \centering
+      \begin{itemize}
+        \item Discontinuity rate $\overline{r_d}$ is the number of discontinuities per detection.
+        \mypause
+        \item Lower is better.
+      \end{itemize}
+    \column{0.5\textwidth}
+      \centering
+      \onslide
+      \includegraphics[width=\textwidth]{violin_plot_five_member}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Performance Analysis: Detection Rates}
+  \begin{columns}
+    \column{0.5\textwidth}
+      \centering
+      \begin{itemize}
+        \item Detection rate $\overline{F}$ is the number of detections per second.
+        \mypause
+        \item Tested on Raspberry Pi 4.
+        \mypause
+        \item Higher is better.
+      \end{itemize}
+    \column{0.5\textwidth}
+      \centering
+    \onslide
+      \includegraphics[width=\textwidth]{violin_plot_speed_five_member}
+  \end{columns}
+\end{frame}
+
 \begin{frame}
   \frametitle{Autonomous Landing Proof of Concept \textbf{(FINALLY!)}}
   \begin{columns}
     \column{0.5\textwidth}
+      \begin{itemize}
+        \item Indoor experiments with DJI Spark
+        \mypause
+        \begin{itemize}
+          \item Reduces logistical considerations:\\transportation, weather
+          \mypause
+          \item Stable out-of-the-box autonomous flight
+          \mypause
+          \item Doesn't require GPS (uses other sensors)
+        \end{itemize}
+        \mypause
+        \item Requires DJI Mobile SDK, Custom Android App, and \textbf{lots} of workarounds.
+        \mypause
+        \item Video frames are offloaded (via WiFi) to Raspberry Pi 4 for processing
+        \mypause
+        \item Limiting factor: pre-transmission image compression on tablet (6-7 Hz)
+      \end{itemize}
     \column{0.5\textwidth}
     \centering
+    \onslide
+    \includegraphics[width=\textwidth]{dji_spark}
   \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Demo with worst-performing April Tag 24h10!}
+  \includegraphics[width=\textwidth]{demo_screenshot}
+%  \href{https://vimeo.com/664863992}{\color{blue}Click to watch on Vimeo}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Autonomous Landing Proof of Concept: System Architecture}
+  \includegraphics[width=\textwidth]{spark_architecture.drawio}
+\end{frame}
+
+\yeslogo
+\begin{frame}
+  \frametitle{Publications}
+  \begin{itemize}
+    \item Submitted: Evaluation of April Tag and WhyCode Fiducial Systems for Autonomous Precision Drone Landing with a Gimbal-Mounted Camera
+    \item In Progress: Proof of Concept Results
+  \end{itemize}
 \end{frame}
 
 \section{Research Plan}
 
 \begin{frame}
+  \frametitle{Overview: Unstructured Autonomous Landing}
+  \begin{itemize}
+    \mypause
+    \item Focus on terrain analysis
+    \begin{itemize}
+      \mypause
+      \item Topological analysis\mypause: (smoothness, slant, flatness, size of flat regions)
+      \mypause
+      \item Semantic segmentation\mypause: label terrain according to
+      \begin{itemize}
+        \item the material it contains\mypause: (snow, ice, water, grass, rock, etc.)
+        \mypause
+        \item how safe it appears for landing
+      \end{itemize}
+    \end{itemize}
+    \mypause
+    \item Focus on real time performance
+    \begin{itemize}
+      \mypause
+      \item Minimize computational requirements
+      \mypause
+      \item Target specific hardware platforms
+    \end{itemize}
+    \mypause
+    \item Approach:
+    \begin{itemize}
+      \item Input: sensor data (RGBD images, LIDAR/RADAR point clouds, etc.)
+      \mypause
+      \item Base: CNN, U-net or Residual U-net for semantic segmentation
+      \mypause
+      \item Potential pre-processing wrappers:
+      \begin{itemize}
+        \item Rectification/calibration of images/point clouds
+        \mypause
+        \item Downsampling of input resolution
+        \mypause
+        \item Topological analysis
+      \end{itemize}
+      \mypause
+      \item Potential post-processing wrappers
+      \begin{itemize}
+        \item Safe landing site tracking
+        \mypause
+        \item Translation to flight commands
+      \end{itemize}
+    \end{itemize}
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
   \frametitle{Data Set Generation}
   \begin{columns}
     \column{0.5\textwidth}
+      AirSim: realistic simulator
+      \begin{itemize}
+        \item Scriptable, automatic generation of large, labeled, synthetic data sets
+        \mypause
+        \item Synthetic sensor data (LIDAR, RGBD cameras)
+        \mypause
+        \begin{itemize}
+          \item possible to imitate RADAR sensors with some tweaking of LIDAR sensor
+        \end{itemize}
+        \mypause
+        \item Specify realistic sensor parameters (distortion, range, update rate, etc.)
+        \mypause
+        \item Segmentation masks for high-level label generation
+        \mypause
+        \item Labeling method can be slow, hand-tuned
+      \end{itemize}
     \column{0.5\textwidth}
+      \onslide
+      \includegraphics[width=0.9\textwidth]{airsim}
+
+      \href{https://mspoweruser.com/microsoft-launches-aerial-informatics-and-robotics-platform-to-help-developers-build-autonomous-systems/}{\color{blue}Image source}
     \centering
   \end{columns}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Terrain Classifier Creation}
+  \frametitle{Offline Terrain Classifier Creation}
   \begin{columns}
     \column{0.5\textwidth}
+      \begin{itemize}
+        \item Performance comparison of several neural networks on the data set.
+        \item Ranking in terms of classification accuracy
+        \begin{itemize}
+          \item emphasis on reducing false identification of safe areas
+        \end{itemize}
+      \end{itemize}
     \column{0.5\textwidth}
     \centering
+    \onslide
+    \includegraphics[width=\textwidth]{Convolutional-neural-network-CNN-architecture-based-on-UNET-Ronneberger-et-al}\\
+    \href{https://www.researchgate.net/figure/Convolutional-neural-network-CNN-architecture-based-on-UNET-Ronneberger-et-al_fig2_323597886}{Image source}
   \end{columns}
 \end{frame}
 
@@ -343,6 +605,44 @@
     \column{0.5\textwidth}
     \column{0.5\textwidth}
     \centering
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{Summary}
+  \begin{columns}
+    \column{0.5\textwidth}
+      \begin{itemize}
+        \mypause
+        \item Goal: autonomous drone landing
+        \mypause
+        \item Past work: landing via fiducial markers at \textit{known} landing pads
+        \mypause
+        \item Research plan: unstructured landing (no known landing pad)
+        \begin{itemize}
+          \mypause
+          \item Sensors: RGBD, LIDAR/RADAR
+          \mypause
+          \item Topological/semantic terrain analysis
+          \mypause
+          \item Synthetic data
+          \mypause
+          \item Testing in simulation
+          \mypause
+          \item Real world tests: power/framerate
+          \mypause
+          \item Real world tests: landing with a physical drone
+          \mypause
+        \end{itemize}
+      \end{itemize}
+
+    \column{0.5\textwidth}
+      \centering
+
+      \onslide
+      \includegraphics[width=\textwidth]{demo_screenshot}\\\href{https://vimeo.com/664863992}{\color{blue}Click to watch on Vimeo}\vspace{1cm}
+
+      \includegraphics[width=0.5\textwidth]{airsim}
   \end{columns}
 \end{frame}
 
