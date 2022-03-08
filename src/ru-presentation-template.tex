@@ -50,6 +50,7 @@
 
 \usepackage{datetime}
 \usepackage{hyperref}
+\usepackage{textcomp}
 
 \newdateformat{monthyeardate}{\monthname[\THEMONTH] \THEYEAR}
 
@@ -67,7 +68,8 @@
 \yeslogo
 
 \newif\ifpause
-\pausefalse
+\pausetrue
+%\pausefalse
 \newcommand{\mypause}{\ifpause \pause \fi}
 
 \titlegraphic{\includegraphics[width=2CM]{ru_logo_transparent}}
@@ -172,39 +174,29 @@
 \begin{frame}
   \frametitle{State of the Art}
   \begin{itemize}
-    \item GPS-based landing: inaccurate (especially in Iceland, high GDOP).
+    \item GPS-based landing
     \mypause
-    \item RTK GPS: sufficiently accurate
     \begin{itemize}
-      \mypause
-      \item Requires extra equipment (powered base station)
-      \mypause
-      \item Overhead initialization time at every new mission
-      \mypause
-      \item Limited range (must be deployed at mission site)
+      \item RTK
     \end{itemize}
     \mypause
-    \item Fiducial landing:
+    \item Known landing locations:
     \begin{itemize}
+      \item Visual matching
       \mypause
-      \item Requires little overhead (only a marker printout and monocular camera)
+      \item Visual markers
       \mypause
-      \item Limited detection abilities (fixed, downward-facing camera)
+      \item IR beacons
     \end{itemize}
     \mypause
-    \item Unstructured Landing
+    \item Terrain analysis
     \begin{itemize}
-      \item PnP matching (land at takeoff site after GPS-based approach)
-      \item Terrain analysis via LIDAR point clouds, RGBD images, or optical flow
-      \item Typically slow (processing must be offloaded), or
-      \item Add behavioral constraints (optical flow needs motion)
+      \item Optical flow
+      \mypause
+      \item RGBD, LIDAR
     \end{itemize}
     \mypause
     \item Other methods
-    \begin{itemize}
-      \item IR beacons
-      \item
-    \end{itemize}
   \end{itemize}
 
 \end{frame}
@@ -221,16 +213,18 @@
     \end{itemize}
     \column{0.5\textwidth}
     \centering
+    \onslide
     \includegraphics[width=0.75\textwidth]{coral_drone}\\
+    \mypause
+    \includegraphics[width=0.35\textwidth, angle=-90]{original_landing_pad}
   \end{columns}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Test Hexacopters' Components}
+  \frametitle{Test Hexacopter Components}
   \begin{columns}
     \column{0.5\textwidth}
     \begin{itemize}
-      \mypause
       \item Navio2 + RPi 3 autopilot combo
       \mypause
       \item Companion boards (for heavy onboard processing):
@@ -248,9 +242,7 @@
       \item 2.4 GHz R/C control
       \mypause
       \item Tested Autopilot Softwares
-      \mypause
       \begin{itemize}
-        \mypause
         \item ArduPilot
         \mypause
         \item PX4 (not technically supported)
@@ -270,19 +262,26 @@
     \column{0.5\textwidth}
     \begin{itemize}
       \item Stable (manual) flight performance
+      \mypause
       \item \textasciitilde 20 min flying time
+      \mypause
       \item Successful marker tracking
+      \mypause
       \item Errors during approach
       \begin{itemize}
         \item Monocular pose estimation ambiguity
+        \mypause
         \item GPS inaccuracy
       \end{itemize}
+      \mypause
       \item No successful autonomous landing\\(but almost)
     \end{itemize}
     \column{0.5\textwidth}
     \centering
+    {
     \includegraphics[width=0.6\textwidth]{coral_gimbal_performance_x_axis}\\
     \includegraphics[width=0.6\textwidth]{coral_gimbal_performance_y_axis}\\
+    }
   \end{columns}
 \end{frame}
 
@@ -292,13 +291,18 @@
     \column{0.4\textwidth}
     \begin{itemize}
       \item Project with Christopher Hamilton (geologist, University of Arizona) and Baldur Björnsson
+      \mypause
       \item 1.3 m span, 25 kg lift
+      \mypause
       \item FLIR camera
+      \mypause
       \item Surveyed lava field at Fagradalsfjall
+      \mypause
       \item Featured \href{https://youtu.be/6SIgFPhhRPE?t=1208}{\color{blue}on BBC Click}
     \end{itemize}
     \column{0.5\textwidth}
     \centering
+    \onslide
     \includegraphics[width=0.7\textwidth]{ir_drone_in_flight}
     \includegraphics[width=0.7\textwidth]{ir_drone_ir_stillframe}
   \end{columns}
@@ -312,12 +316,15 @@
     \column{0.5\textwidth}
     Necessary properties:
     \begin{itemize}
-      \item Mitigate orientation ambiguity
-      \item Maintain visibility of the marker at both long- and short- distances
-      \item Be adequately computationally efficient to run on embedded hardware.
+      \item Mitigates orientation ambiguity
+      \mypause
+      \item Detectable at long- and short-range
+      \mypause
+      \item Runs on embedded hardware
     \end{itemize}
     \column{0.5\textwidth}
     \centering
+    \onslide
     \includegraphics[width=0.9\textwidth]{orbit-left-right-4_apriltag48h12_position-target}
   \end{columns}
 \end{frame}
@@ -327,13 +334,15 @@
   \begin{columns}
     \column{0.5\textwidth}
     \begin{itemize}
-      \item 2 possible orientations
-      \item Determined from semi-axes of outer black ellipse
-      \item Choose the circle that is better centered on the marker
-      \item Use arclength of intersections with ID ``teeth''
+      \item Semi-axes~\textrightarrow~2 possible orientations
+      \mypause
+      \item Better centered~\textrightarrow~correct
+      \mypause
+      \item Arclength of intersections with ID ``teeth''
     \end{itemize}
     \column{0.5\textwidth}
     \centering
+    \onslide
     \includegraphics[width=0.9\textwidth]{whycode_orig_both_solutions_cropped}
   \end{columns}
 \end{frame}
@@ -345,12 +354,16 @@
     \column{0.5\textwidth}
     Approach 1: Extra tooth sampling
     \begin{itemize}
-      \item Build on sampling of original method.
-      \item Radial sampling through predicted tooth edges.
-      \item Choose the solution that is centered better using predicted tooth edges.
+      \mypause
+      \item Sample ID with original method.
+      \mypause
+      \item Add: radial sampling on tooth edges.
+      \mypause
+      \item Choose solution based on tooth edge predictions.
     \end{itemize}
     \column{0.5\textwidth}
     \centering
+    \onslide
     \includegraphics[width=0.9\textwidth]{whycode_ellipse_both_solutions_cropped}\\
   \end{columns}
 \end{frame}
@@ -360,16 +373,22 @@
 
   \begin{columns}
     \column{0.5\textwidth}
-    Approach 2: Planar regression from at least 3 coplanar markers
+    Approach 2: Coplanar marker arrangements
     \begin{itemize}
-      \item Throw away individual marker orientations.
+      \mypause
+      \item Ignore individual marker orientations
+      \mypause
       \item Calculate normal vector to the plane connecting the markers.
+      \mypause
       \item Extract pitch and roll from the normal vector.
+      \mypause
       \item Extract yaw from the marker IDs.
+      \mypause
       \item Takes advantage of WhyCode's efficiency.
     \end{itemize}
     \column{0.5\textwidth}
     \centering
+    \onslide
     \includegraphics[width=0.9\textwidth]{cropped_whycode_3_8_jiri_example}
   \end{columns}
 \end{frame}
@@ -481,11 +500,11 @@
     \item Focus on terrain analysis
     \begin{itemize}
       \mypause
-      \item Topological analysis\mypause: (smoothness, slant, flatness, size of flat regions)
+      \item Topographical analysis%\mypause: (smoothness, slant, flatness, size of flat regions)
       \mypause
-      \item Semantic segmentation\mypause: label terrain according to
+      \item Semantic segmentation\mypause:% terrain type classification%\mypause: label terrain according to
       \begin{itemize}
-        \item the material it contains\mypause: (snow, ice, water, grass, rock, etc.)
+        \item terrain type classification: (snow, ice, water, grass, rock, etc.)
         \mypause
         \item how safe it appears for landing
       \end{itemize}
@@ -499,28 +518,35 @@
       \item Target specific hardware platforms
     \end{itemize}
     \mypause
-    \item Approach:
+    \item Overall structure:
     \begin{itemize}
-      \item Input: sensor data (RGBD images, LIDAR/RADAR point clouds, etc.)
-      \mypause
-      \item Base: CNN, U-net or Residual U-net for semantic segmentation
-      \mypause
-      \item Potential pre-processing wrappers:
-      \begin{itemize}
-        \item Rectification/calibration of images/point clouds
-        \mypause
-        \item Downsampling of input resolution
-        \mypause
-        \item Topological analysis
-      \end{itemize}
-      \mypause
-      \item Potential post-processing wrappers
-      \begin{itemize}
-        \item Safe landing site tracking
-        \mypause
-        \item Translation to flight commands
-      \end{itemize}
+      \item Input: sensor data
+      \item Process (quickly): ??
+      \item Output: safe landing sites (e.g. heat map)\mypause~\textrightarrow~flight control commands
     \end{itemize}
+%    \item Approach:
+%    \begin{itemize}
+%      \item Input: sensor data (RGBD, LIDAR, RADAR)
+%      \mypause
+%      \item Topographical analysis: signal processing or deep learning methods
+%      \item Semantic segmentation: deep learning methods% CNN, U-net or Residual U-net% for semantic segmentation
+%      \mypause
+%      \item Pre-processing wrappers:
+%      \begin{itemize}
+%        \item Rectification/calibration of images/point clouds
+%        \mypause
+%        \item Downsampling of input resolution
+%%        \mypause
+%%        \item Topological analysis
+%      \end{itemize}
+%      \mypause
+%      \item Potential post-processing wrappers
+%      \begin{itemize}
+%        \item Safe landing site tracking
+%        \mypause
+%        \item Translation to flight commands
+%      \end{itemize}
+%    \end{itemize}
   \end{itemize}
 \end{frame}
 
@@ -530,15 +556,17 @@
     \column{0.5\textwidth}
       AirSim: realistic simulator
       \begin{itemize}
-        \item Scriptable, automatic generation of large, labeled, synthetic data sets
+        \item Automatic generation of large data sets
         \mypause
         \item Synthetic sensor data (LIDAR, RGBD cameras)
         \mypause
+        \item Tag with IMU data
+        \mypause
         \begin{itemize}
-          \item possible to imitate RADAR sensors with some tweaking of LIDAR sensor
+          \item LIDAR~\textrightarrow~RADAR
         \end{itemize}
         \mypause
-        \item Specify realistic sensor parameters (distortion, range, update rate, etc.)
+        \item Specify realistic sensor parameters
         \mypause
         \item Segmentation masks for high-level label generation
         \mypause
@@ -554,19 +582,35 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Offline Terrain Classifier Creation}
+  \frametitle{Terrain Classifier Creation}
   \begin{columns}
     \column{0.5\textwidth}
       \begin{itemize}
-        \item Performance comparison of several neural networks on the data set.
-        \item Ranking in terms of classification accuracy
+        \item Test several methods
+        \mypause
         \begin{itemize}
-          \item emphasis on reducing false identification of safe areas
+          \item Conventional signal/image processing%(gradient analysis, edge detection)
+          \mypause
+          \item Deep learning methods% (CNN, U-net, Residual U-net)
+          \mypause
+          \item Combination
+        \end{itemize}
+        \mypause
+        \item Pre-processing wrappers:
+        \begin{itemize}
+          \item Rectification/calibration
+          \mypause
+          \item Downsampling/resizing
+        \end{itemize}
+        \mypause
+        \item Performance comparison
+        \begin{itemize}
+          \item Reduce false positives
+          \mypause
         \end{itemize}
       \end{itemize}
     \column{0.5\textwidth}
     \centering
-    \onslide
     \includegraphics[width=\textwidth]{Convolutional-neural-network-CNN-architecture-based-on-UNET-Ronneberger-et-al}\\
     \href{https://www.researchgate.net/figure/Convolutional-neural-network-CNN-architecture-based-on-UNET-Ronneberger-et-al_fig2_323597886}{Image source}
   \end{columns}
@@ -575,37 +619,145 @@
 \begin{frame}
   \frametitle{Testing in Simulation}
   \begin{columns}
-    \column{0.5\textwidth}
-    \column{0.5\textwidth}
+    \column{0.9\textwidth}
+    \begin{itemize}
+      \item Post-processing wrappers:
+      \begin{itemize}
+        \item Safe region tracking
+        \mypause
+        \item Translation to flight commands
+      \end{itemize}
+      \mypause
+      \item Integration with ArduPilot/PX4 SITL
+      \mypause
+      \item Simulated autonomous missions in AirSim
+      \mypause
+      \item Qualitative analysis:
+      \begin{itemize}
+        \item Does the drone land at all?
+        \mypause
+        \item Does the safe region tracking work?
+        \mypause
+        \item Does the autopilot software accept the commands?
+      \end{itemize}
+    \end{itemize}
+    \column{0.1\textwidth}
     \centering
   \end{columns}
 \end{frame}
 
+\section{Simulation is not enough!}
+
+%\nologo
+%\begin{frame}
+%  \frametitle{Testing in the Real World}
+%  \begin{columns}
+%    \column{0.6\textwidth}
+%    \begin{itemize}
+%      \item<1-> Offline
+%      \begin{itemize}
+%        \item<1-> Accuracy on real world data
+%      \end{itemize}
+%      \mypause
+%      \item<2-> Lab scenarios
+%      \begin{itemize}
+%        \item<3-> Runtime framerate on embedded hardware
+%        \item<3-> Power requirements on embedded hardware
+%      \end{itemize}
+%      \mypause
+%      \item<4-> Real world landing scenarios
+%    \end{itemize}
+%    \column{0.4\textwidth}
+%    \centering
+%    \visible<2->{\includegraphics[width=0.75\textwidth]{jetson_nano}\\}
+%    \visible<2->{\includegraphics[width=0.75\textwidth]{google_coral}}
+%    \mypause
+%  \end{columns}
+%\end{frame}
+
+\nologo
 \begin{frame}
   \frametitle{Testing in the Real World}
   \begin{columns}
-    \column{0.5\textwidth}
-    \column{0.5\textwidth}
-    \centering
+    \begin{column}{0.6\textwidth}
+      \begin{itemize}
+        \item<1-> Offline
+        \begin{itemize}
+          \item<1-> Accuracy on real world data
+        \end{itemize}
+%        \mypause
+        \item<2-> Lab scenarios
+        \begin{itemize}
+          \item<2-> Runtime framerate on embedded hardware
+          \item<2-> Power requirements on embedded hardware
+        \end{itemize}
+        \mypause
+        \item<3-> Real world landing scenarios
+      \end{itemize}
+    \end{column}
+    \visible<1->
+    {
+      \begin{column}{0.4\textwidth}
+      \centering
+        \includegraphics[width=0.75\textwidth]{jetson_nano}\\
+        \includegraphics[width=0.75\textwidth]{google_coral}
+      \end{column}
+    }
+    \mypause
   \end{columns}
 \end{frame}
 
+\yeslogo
 \begin{frame}
   \frametitle{Drone Upgrades}
   \begin{columns}
-    \column{0.5\textwidth}
-    \column{0.5\textwidth}
+    \column{0.6\textwidth}
+      \begin{itemize}
+        \item New flight controller: Pixhawk Cube Orange
+        \mypause
+        \item Here3
+        \mypause
+        \item Supplement GPS
+        \mypause
+        \begin{itemize}
+          \item Optical Flow
+          \item LIDAR rangefinder
+        \end{itemize}
+        \mypause
+        \item Protective sensor cases, gimbal mounts
+        \mypause
+        \begin{itemize}
+          \item Intel RealSense D435 RGBD camera
+          \item Intel RealSense D455 RGBD camera (IMU)
+          \item Intel RealSense L515 LIDAR (IMU)
+          \item Texas Instruments IWR6843 60 GHz RADAR
+        \end{itemize}
+      \end{itemize}
+    \column{0.4\textwidth}
     \centering
+    \includegraphics[width=0.75\textwidth]{rgb_image}\\
+    \includegraphics[width=0.75\textwidth]{depth_image}
   \end{columns}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Risk Analysis}
-  \begin{columns}
-    \column{0.5\textwidth}
-    \column{0.5\textwidth}
-    \centering
-  \end{columns}
+  \frametitle{Main Risks}
+  \begin{itemize}
+    \item The synthetic data does not accurately represent the real world!
+    \mypause
+    \begin{itemize}
+      \item Show results in simulation.
+      \mypause
+      \item Use real world data\mypause~\textrightarrow~no segmentation masks.
+    \end{itemize}
+    \mypause
+    \item The embedded hardware is too slow!
+    \mypause
+    \begin{itemize}
+      \item Reduce computational needs\mypause~\textrightarrow~prune network, decrease input data size\mypause
+      \item Use non-embedded hardware\mypause~\textrightarrow~generate reliable flight commands on real world data
+    \end{itemize}
+  \end{itemize}
 \end{frame}
 
 \begin{frame}
@@ -613,12 +765,14 @@
   \begin{columns}
     \column{0.5\textwidth}
       \begin{itemize}
-        \mypause
         \item Goal: autonomous drone landing
         \mypause
         \item Past work: landing via fiducial markers at \textit{known} landing pads
+        \begin{itemize}
+          \item Contribution: gimbal-mounted camera setup, new marker variants
+        \end{itemize}
         \mypause
-        \item Research plan: unstructured landing (no known landing pad)
+        \item Research plan: unstructured landing
         \begin{itemize}
           \mypause
           \item Sensors: RGBD, LIDAR/RADAR
@@ -634,6 +788,7 @@
           \item Real world tests: landing with a physical drone
           \mypause
         \end{itemize}
+        \item Thank you! Are there any questions?
       \end{itemize}
 
     \column{0.5\textwidth}
