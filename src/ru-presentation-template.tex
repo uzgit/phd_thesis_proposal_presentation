@@ -106,17 +106,13 @@
         \item Problem description and motivation
         \item State of the Art
       \end{itemize}
-    \mypause
     \item Completed/ongoing projects
       \begin{itemize}
-        \mypause
         \item Initial proof of concept attempt
           \begin{itemize}
             \item Continuation of master thesis (tested in simulation)
           \end{itemize}
-        \mypause
         \item Fiducial marker deep-dive and modifications
-        \mypause
         \item Proof of concept
       \end{itemize}
     \item Research Plan
@@ -140,7 +136,7 @@
       \begin{itemize}
         \item Takeoff
         \item Waypoint-to-waypoint-flight
-        \item Miscellaneous tasks:\\track/orbit an object,\\take a picture, etc.
+        \item Track/orbit objects,\\take pictures, etc.
       \end{itemize}
       \mypause
       \item Landing is still largely \textbf{manual}.
@@ -413,13 +409,12 @@
     \column{0.5\textwidth}
       \centering
       \begin{itemize}
+        \item Orientation ambiguity~\textrightarrow~discontinuities.
         \item Discontinuity rate $\overline{r_d}$ is the number of discontinuities per detection.
-        \mypause
         \item Lower is better.
       \end{itemize}
     \column{0.5\textwidth}
       \centering
-      \onslide
       \includegraphics[width=\textwidth]{violin_plot_five_member}
   \end{columns}
 \end{frame}
@@ -431,14 +426,11 @@
       \centering
       \begin{itemize}
         \item Detection rate $\overline{F}$ is the number of detections per second.
-        \mypause
         \item Tested on Raspberry Pi 4.
-        \mypause
         \item Higher is better.
       \end{itemize}
     \column{0.5\textwidth}
       \centering
-    \onslide
       \includegraphics[width=\textwidth]{violin_plot_speed_five_member}
   \end{columns}
 \end{frame}
@@ -467,7 +459,7 @@
     \column{0.5\textwidth}
     \centering
     \onslide
-    \includegraphics[width=\textwidth]{dji_spark}
+    \includegraphics[width=\textwidth]{dji_spark}\\(Banana for scale.)
   \end{columns}
 \end{frame}
 
@@ -487,7 +479,7 @@
   \frametitle{Publications}
   \begin{itemize}
     \item Submitted: Evaluation of April Tag and WhyCode Fiducial Systems for Autonomous Precision Drone Landing with a Gimbal-Mounted Camera
-    \item In Progress: Proof of Concept Results
+    \item In Progress: results from autonomous landing proof of concept
   \end{itemize}
 \end{frame}
 
@@ -496,17 +488,16 @@
 \begin{frame}
   \frametitle{Overview: Unstructured Autonomous Landing}
   \begin{itemize}
-    \mypause
     \item Focus on terrain analysis
     \begin{itemize}
       \mypause
       \item Topographical analysis%\mypause: (smoothness, slant, flatness, size of flat regions)
       \mypause
-      \item Semantic segmentation\mypause:% terrain type classification%\mypause: label terrain according to
+      \item Semantic segmentation%\mypause: terrain type classification%\mypause: label terrain according to
       \begin{itemize}
         \item terrain type classification: (snow, ice, water, grass, rock, etc.)
         \mypause
-        \item how safe it appears for landing
+        \item classify according to predicted safety: (safe, questionable, unsafe, etc.)
       \end{itemize}
     \end{itemize}
     \mypause
