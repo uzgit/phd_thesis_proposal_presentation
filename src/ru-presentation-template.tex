@@ -68,8 +68,8 @@
 \yeslogo
 
 \newif\ifpause
-%\pausetrue
-\pausefalse
+\pausetrue
+%\pausefalse
 \newcommand{\mypause}{\ifpause \pause \fi}
 
 \titlegraphic{\includegraphics[width=2CM]{ru_logo_transparent}}
@@ -187,12 +187,12 @@
     \mypause
     \item Terrain analysis
     \begin{itemize}
-      \item Optical flow
+      \item Optical flow\mypause~(requires motion)
       \mypause
-      \item RGBD, LIDAR
+      \item RGBD, LIDAR\mypause~(slow, offload processing)
     \end{itemize}
-    \mypause
-    \item Other methods
+%    \mypause
+%    \item Other methods
   \end{itemize}
 
 \end{frame}
@@ -464,14 +464,14 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Demo with worst-performing April Tag 24h10!}
-  \includegraphics[width=\textwidth]{demo_screenshot}
-%  \href{https://vimeo.com/664863992}{\color{blue}Click to watch on Vimeo}
+  \frametitle{Autonomous Landing Proof of Concept: System Architecture}
+  \includegraphics[width=\textwidth]{spark_architecture.drawio}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Autonomous Landing Proof of Concept: System Architecture}
-  \includegraphics[width=\textwidth]{spark_architecture.drawio}
+  \frametitle{Demo with worst-performing April Tag 24h10!}
+  \includegraphics[width=\textwidth]{demo_screenshot}
+%  \href{https://vimeo.com/664863992}{\color{blue}Click to watch on Vimeo}
 \end{frame}
 
 \yeslogo
@@ -768,7 +768,7 @@
           \mypause
           \item Sensors: RGBD, LIDAR/RADAR
           \mypause
-          \item Topological/semantic terrain analysis
+          \item Topographical/semantic terrain analysis
           \mypause
           \item Synthetic data
           \mypause
