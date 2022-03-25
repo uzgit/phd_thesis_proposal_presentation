@@ -281,6 +281,8 @@
   \end{columns}
 \end{frame}
 
+\section{Meanwhile...}
+
 \begin{frame}
   \frametitle{Heavy Lift IR Drone}
   \begin{columns}
@@ -326,9 +328,11 @@
 \end{frame}
 
 \begin{frame}
-  \frametitle{Orientation Ambiguity in WhyCode}
+  \frametitle{WhyCode Orig(inal)}
   \begin{columns}
     \column{0.5\textwidth}
+    \includegraphics<1-4>[width=0.9\textwidth]{whycode_layout}\includegraphics<5>[width=0.9\textwidth]{whycode_layout_with_sample_lines}
+    \mypause
     \begin{itemize}
       \item Semi-axes~\textrightarrow~2 possible orientations
       \mypause
@@ -348,14 +352,14 @@
 
   \begin{columns}
     \column{0.5\textwidth}
-    Approach 1: Extra tooth sampling
+    \includegraphics[width=0.9\textwidth]{whycode_layout_with_sample_lines_ellipse}
     \begin{itemize}
       \mypause
       \item Sample ID with original method.
       \mypause
       \item Add: radial sampling on tooth edges.
       \mypause
-      \item Choose solution based on tooth edge predictions.
+      \item Minimize variance on extra sample lines.
     \end{itemize}
     \column{0.5\textwidth}
     \centering
