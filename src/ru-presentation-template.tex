@@ -327,6 +327,8 @@
   \end{columns}
 \end{frame}
 
+\ifpause
+
 \begin{frame}
   \frametitle{WhyCode Orig(inal)}
   \begin{columns}
@@ -346,6 +348,47 @@
     \includegraphics[width=0.9\textwidth]{whycode_orig_both_solutions_cropped}
   \end{columns}
 \end{frame}
+
+\else
+
+\begin{frame}
+  \frametitle{WhyCode Orig(inal)}
+  \begin{columns}
+    \column{0.5\textwidth}
+    \includegraphics[width=0.9\textwidth]{whycode_layout}
+    \mypause
+    \begin{itemize}
+      \item Semi-axes~\textrightarrow~2 possible orientations
+      \mypause
+      \item Better centered~\textrightarrow~correct
+      \mypause
+      \item Arclength of intersections with ID ``teeth''
+    \end{itemize}
+    \column{0.5\textwidth}
+    \centering
+    \onslide
+    \includegraphics[width=0.9\textwidth]{whycode_orig_both_solutions_cropped}
+  \end{columns}
+\end{frame}
+
+\begin{frame}
+  \frametitle{WhyCode Orig(inal)}
+  \begin{columns}
+    \column{0.5\textwidth}
+    \includegraphics[width=0.9\textwidth]{whycode_layout_with_sample_lines}
+    \begin{itemize}
+      \item Semi-axes~\textrightarrow~2 possible orientations
+      \item Better centered~\textrightarrow~correct
+      \item Arclength of intersections with ID ``teeth''
+    \end{itemize}
+    \column{0.5\textwidth}
+    \centering
+    \onslide
+    \includegraphics[width=0.9\textwidth]{whycode_orig_both_solutions_cropped}
+  \end{columns}
+\end{frame}
+
+\fi
 
 \begin{frame}
   \frametitle{Fiducial System Modifications: ``WhyCode Ellipse''}
@@ -567,6 +610,8 @@
         \item Segmentation masks for high-level label generation
         \mypause
         \item Labeling method can be slow, hand-tuned
+        \mypause
+        \item Real world data for validation
       \end{itemize}
     \column{0.5\textwidth}
       \onslide
@@ -585,12 +630,14 @@
         \item Test several methods
         \mypause
         \begin{itemize}
-          \item Conventional signal/image processing (gradient analysis, edge detection/dilation)
+          \item Conventional signal/image processing% (gradient analysis, edge detection/dilation)
           \mypause
-          \item Deep learning methods (PyTorch: CNN, U-net, Residual U-net)
+          \item Deep learning methods% (CNN, U-net, Residual U-net)
           \mypause
           \item Combination
+          \mypause
         \end{itemize}
+        \item Creation: Python (PyTorch)\\Use: C++
         \mypause
         \item Pre-processing wrappers:
         \begin{itemize}
@@ -608,7 +655,7 @@
     \column{0.5\textwidth}
     \centering
     \includegraphics[width=\textwidth]{Convolutional-neural-network-CNN-architecture-based-on-UNET-Ronneberger-et-al}\\
-    \href{https://www.researchgate.net/figure/Convolutional-neural-network-CNN-architecture-based-on-UNET-Ronneberger-et-al_fig2_323597886}{Image source}
+    \href{https://www.researchgate.net/figure/Convolutional-neural-network-CNN-architecture-based-on-UNET-Ronneberger-et-al_fig2_323597886}{\color{blue} Image source}
   \end{columns}
 \end{frame}
 
