@@ -589,6 +589,8 @@
   \end{itemize}
 \end{frame}
 
+\section{Sensor Data}
+
 \begin{frame}
   \frametitle{Data Set Generation}
   \begin{columns}
@@ -597,17 +599,16 @@
       \begin{itemize}
         \item Automatic generation of large data sets
         \mypause
-        \item Synthetic sensor data (LIDAR, RGBD cameras)
-        \mypause
-        \item Tag with IMU data
-        \mypause
+        \item Synthetic sensor data
         \begin{itemize}
-          \item LIDAR~\textrightarrow~RADAR
+          \item RGBD
+          \item LIDAR
+          \item RADAR
+          \item IMU
+          \item Specify parameters
         \end{itemize}
         \mypause
-        \item Specify realistic sensor parameters
-        \mypause
-        \item Segmentation masks for high-level label generation
+        \item Segmentation masks
         \mypause
         \item Labeling method can be slow, hand-tuned
         \mypause
@@ -622,6 +623,8 @@
   \end{columns}
 \end{frame}
 
+\section{Processing}
+
 \begin{frame}
   \frametitle{Terrain Classifier Creation}
   \begin{columns}
@@ -635,9 +638,9 @@
           \item Deep learning methods% (CNN, U-net, Residual U-net)
           \mypause
           \item Combination
-          \mypause
+%          \mypause
         \end{itemize}
-        \item Creation: Python (PyTorch)\\Use: C++
+%        \item Creation: Python (PyTorch)\\Use: C++
         \mypause
         \item Pre-processing wrappers:
         \begin{itemize}
@@ -659,6 +662,8 @@
   \end{columns}
 \end{frame}
 
+\section{Testing}
+
 \begin{frame}
   \frametitle{Testing in Simulation}
   \begin{columns}
@@ -667,12 +672,10 @@
       \item Post-processing wrappers:
       \begin{itemize}
         \item Safe region tracking
-        \mypause
         \item Translation to flight commands
       \end{itemize}
       \mypause
       \item Integration with ArduPilot/PX4 SITL
-      \mypause
       \item Simulated autonomous missions in AirSim
       \mypause
       \item Qualitative analysis:
@@ -755,11 +758,8 @@
   \begin{columns}
     \column{0.6\textwidth}
       \begin{itemize}
-        \item New flight controller: Pixhawk Cube Orange
-        \mypause
-        \item Here3
-        \mypause
-        \item Supplement GPS
+        \item Better flight controller: Pixhawk Cube Orange
+        \item Better GPS: Here3
         \mypause
         \begin{itemize}
           \item Optical Flow
@@ -767,7 +767,6 @@
         \end{itemize}
         \mypause
         \item Protective sensor cases, gimbal mounts
-        \mypause
         \begin{itemize}
           \item Intel RealSense D435 RGBD camera
           \item Intel RealSense D455 RGBD camera (IMU)
@@ -789,18 +788,15 @@
   \frametitle{Main Risks}
   \begin{itemize}
     \item The synthetic data does not accurately represent the real world!
-    \mypause
     \begin{itemize}
       \item Show results in simulation.
-      \mypause
-      \item Use real world data\mypause~\textrightarrow~no segmentation masks.
+      \item Use real world data~\textrightarrow~no segmentation masks.
     \end{itemize}
     \mypause
     \item The embedded hardware is too slow!
-    \mypause
     \begin{itemize}
-      \item Reduce computational needs\mypause~\textrightarrow~prune network, decrease input size\mypause
-      \item Use non-embedded hardware\mypause~\textrightarrow~generate reliable flight commands on real world data
+      \item Reduce computational needs~\textrightarrow~prune network, decrease input size
+      \item Use non-embedded hardware~\textrightarrow~generate reliable flight commands on real world data
     \end{itemize}
   \end{itemize}
 \end{frame}
@@ -819,20 +815,14 @@
         \mypause
         \item Research plan: unstructured landing
         \begin{itemize}
-          \mypause
           \item Sensors: RGBD, LIDAR/RADAR
-          \mypause
           \item Topographical/semantic terrain analysis
-          \mypause
           \item Synthetic data
-          \mypause
           \item Testing in simulation
-          \mypause
           \item Real world tests: power/framerate
-          \mypause
           \item Real world tests: landing with a physical drone
-          \mypause
         \end{itemize}
+        \mypause
         \item Thank you for the support!
         \item Thank you for listening! Are there any questions?
       \end{itemize}
